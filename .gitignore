@@ -1,0 +1,12 @@
+# MS Access kilit dosyaları
+*.laccdb
+*.ldb
+
+# İşletim sistemi ve IDE dosyaları
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Geçici Word dosyaları
+~$*.docx
