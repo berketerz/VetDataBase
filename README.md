@@ -49,14 +49,14 @@
 
 ### Oluşan İlişkisel Tablolar
 
-1. **Sahip** (<u>sahip\_ID</u>, ad, soyad, adres) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
-2. **Sahip_Telefon** (<u>sahip\_ID (FK), tel\_no</u>) &nbsp;&nbsp;&nbsp;— *[Adım 6]*
-3. **Hayvan** (<u>hayvan\_ID</u>, ad, tur, irk, cinsiyet, dogum\_tarihi, sahip\_ID (FK)) &nbsp;&nbsp;&nbsp;— *[Adım 1, Adım 4]*
-4. **Veteriner_Hekim** (<u>vet\_ID</u>, ad, soyad, uzmanlik\_alani, tel\_no) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
-5. **Ilac** (<u>ilac\_ID</u>, ad, tur, fiyat) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
-6. **Asi** (<u>asi\_ID</u>, ad, gecerlilik\_suresi) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
-7. **Muayene** (<u>hayvan\_ID (FK), vet\_ID (FK), muayene\_tarihi</u>, tani, notlar) &nbsp;&nbsp;&nbsp;— *[Adım 5]*
-8. **Asi_Uygulama** (<u>hayvan\_ID (FK), asi\_ID (FK), asilama\_tarihi</u>) &nbsp;&nbsp;&nbsp;— *[Adım 5]*
-9. **Recete** (<u>hayvan\_ID (FK), vet\_ID (FK), ilac\_ID (FK), recete\_tarihi</u>, doz, miktar) &nbsp;&nbsp;&nbsp;— *[Adım 7]*
+1. **Sahip** (<ins>sahip\_ID</ins>, ad, soyad, adres) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
+2. **Sahip_Telefon** (<ins>sahip\_ID (FK), tel\_no</ins>) &nbsp;&nbsp;&nbsp;— *[Adım 6]*
+3. **Hayvan** (<ins>hayvan\_ID</ins>, ad, tur, irk, cinsiyet, dogum\_tarihi, sahip\_ID (FK)) &nbsp;&nbsp;&nbsp;— *[Adım 1, Adım 4]*
+4. **Veteriner_Hekim** (<ins>vet\_ID</ins>, ad, soyad, uzmanlik\_alani, tel\_no) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
+5. **Ilac** (<ins>ilac\_ID</ins>, ad, tur, fiyat) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
+6. **Asi** (<ins>asi\_ID</ins>, ad, gecerlilik\_suresi) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
+7. **Muayene** (<ins>hayvan\_ID (FK), vet\_ID (FK), muayene\_tarihi</ins>, tani, notlar) &nbsp;&nbsp;&nbsp;— *[Adım 5]*
+8. **Asi_Uygulama** (<ins>hayvan\_ID (FK), asi\_ID (FK), asilama\_tarihi</ins>) &nbsp;&nbsp;&nbsp;— *[Adım 5]*
+9. **Recete** (<ins>hayvan\_ID (FK), vet\_ID (FK), ilac\_ID (FK)</ins>, recete\_tarihi, doz, miktar) &nbsp;&nbsp;&nbsp;— *[Adım 7]*
 
 
