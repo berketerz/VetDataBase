@@ -29,26 +29,34 @@
 * **Güçlü Varlıklar (5 Adet):** `sahip`, `hayvan`, `vet hekim`, `ilaç`, `aşı`
 * **Çok Değerli Nitelik:** `sahip` varlığına ait `tel no` (Bir hayvan sahibinin birden fazla telefon numarası olabilir)
 * **İlişkiler ve Kardinaliteler:**
-  * `sahip olmak` (`sahip` 1 — N `hayvan`): 1:N ilişki
-  * `muayene etmek` (`vet hekim` M — N `hayvan`): M:N ilişki (`muayene tarihi`, `tanı`, `notlar`)
-  * `aşı uygulamak` (`hayvan` N — M `aşı`): M:N ilişki (`aşılama tarihi`)
-  * `reçete yazmak` (`vet hekim` M — N `hayvan` — P `ilaç`): M:N:P ilişki (`reçete tarihi`, `doz`, `miktar`)
+  * `sahip olmak` (`sahip` 1 — N `hayvan`)
+  * `muayene etmek` (`vet hekim` M — N `hayvan`):(`muayene tarihi`, `tanı`, `notlar`)
+  * `aşı uygulamak` (`hayvan` N — M `aşı`):(`aşılama tarihi`)
+  * `reçete yazmak` (`vet hekim` M — N `hayvan` — P `ilaç`):(`reçete tarihi`, `doz`, `miktar`)
 
 ---
 
-## 2. İlişkisel Veritabanı Şeması 
+## 2. İlişkisel Veritabanı Şeması
 
-7 Adımlı E-R'den İlişkisel Modele Dönüşüm Algoritması sonucunda elde edilen **9 ilişkisel tablo**:
+### 7 Adımlı Dönüşüm Algoritması
+* **Adım 1:** Güçlü Varlık Tiplerinin Dönüştürülmesi
+* **Adım 2:** Zayıf Varlık Tiplerinin Dönüştürülmesi
+* **Adım 3:** İkili (1:1) İlişki Tiplerinin Dönüştürülmesi
+* **Adım 4:** İkili (1:N) İlişki Tiplerinin Dönüştürülmesi
+* **Adım 5:** İkili (M:N) İlişki Tiplerinin Dönüştürülmesi
+* **Adım 6:** Çok Değerli Niteliklerin Dönüştürülmesi
+* **Adım 7:** Üçlü (n-ary) İlişki Tiplerinin Dönüştürülmesi
 
-| # | Tablo Adı | Birincil Anahtar (PK) | Yabancı Anahtarlar (FK) | Diğer Nitelikler (Sütunlar) | Dönüşüm Adımı |
-| :-: | :--- | :--- | :--- | :--- | :--- |
-| **1** | **Sahip** | `sahip_ID` | - | `ad`, `soyad`, `adres` | Adım 1 (Güçlü Varlık) |
-| **2** | **Sahip_Telefon** | `(sahip_ID, tel_no)` | `sahip_ID` → `Sahip(sahip_ID)` | - | Adım 6 (Çok Değerli Nitelik) |
-| **3** | **Hayvan** | `hayvan_ID` | `sahip_ID` → `Sahip(sahip_ID)` | `ad`, `tur`, `irk`, `cinsiyet`, `dogum_tarihi` | Adım 1 & Adım 4 (1:N İlişki) |
-| **4** | **Veteriner_Hekim** | `vet_ID` | - | `ad`, `soyad`, `uzmanlik_alani`, `tel_no` | Adım 1 (Güçlü Varlık) |
-| **5** | **Ilac** | `ilac_ID` | - | `ad`, `tur`, `fiyat` | Adım 1 (Güçlü Varlık) |
-| **6** | **Asi** | `asi_ID` | - | `ad`, `gecerlilik_suresi` | Adım 1 (Güçlü Varlık) |
-| **7** | **Muayene** | `(hayvan_ID, vet_ID, muayene_tarihi)` | `hayvan_ID` → `Hayvan(hayvan_ID)`<br>`vet_ID` → `Veteriner_Hekim(vet_ID)` | `tani`, `notlar` | Adım 5 (M:N İlişki) |
-| **8** | **Asi_Uygulama** | `(hayvan_ID, asi_ID, asilama_tarihi)` | `hayvan_ID` → `Hayvan(hayvan_ID)`<br>`asi_ID` → `Asi(asi_ID)` | - | Adım 5 (M:N İlişki) |
-| **9** | **Recete** | `(hayvan_ID, vet_ID, ilac_ID, recete_tarihi)` | `hayvan_ID` → `Hayvan(hayvan_ID)`<br>`vet_ID` → `Veteriner_Hekim(vet_ID)`<br>`ilac_ID` → `Ilac(ilac_ID)` | `doz`, `miktar` | Adım 7 (Üçlü / n-ary İlişki) |
+### Oluşan İlişkisel Tablolar
+
+1. **Sahip** (<u>sahip\_ID</u>, ad, soyad, adres) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
+2. **Sahip_Telefon** (<u>sahip\_ID (FK), tel\_no</u>) &nbsp;&nbsp;&nbsp;— *[Adım 6]*
+3. **Hayvan** (<u>hayvan\_ID</u>, ad, tur, irk, cinsiyet, dogum\_tarihi, sahip\_ID (FK)) &nbsp;&nbsp;&nbsp;— *[Adım 1, Adım 4]*
+4. **Veteriner_Hekim** (<u>vet\_ID</u>, ad, soyad, uzmanlik\_alani, tel\_no) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
+5. **Ilac** (<u>ilac\_ID</u>, ad, tur, fiyat) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
+6. **Asi** (<u>asi\_ID</u>, ad, gecerlilik\_suresi) &nbsp;&nbsp;&nbsp;— *[Adım 1]*
+7. **Muayene** (<u>hayvan\_ID (FK), vet\_ID (FK), muayene\_tarihi</u>, tani, notlar) &nbsp;&nbsp;&nbsp;— *[Adım 5]*
+8. **Asi_Uygulama** (<u>hayvan\_ID (FK), asi\_ID (FK), asilama\_tarihi</u>) &nbsp;&nbsp;&nbsp;— *[Adım 5]*
+9. **Recete** (<u>hayvan\_ID (FK), vet\_ID (FK), ilac\_ID (FK), recete\_tarihi</u>, doz, miktar) &nbsp;&nbsp;&nbsp;— *[Adım 7]*
+
 
