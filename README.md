@@ -23,7 +23,7 @@
 
 ## 1. Varlık-İlişki (E-R) Diyagramı
 
-![Veteriner Kliniği E-R Diyagramı](docs/er-diagram.jpg)
+![Veteriner Kliniği E-R Diyagramı](docs/er-diagram.svg)
 
 ### Diyagram Özeti
 * **Güçlü Varlıklar (5 Adet):** `sahip`, `hayvan`, `vet hekim`, `ilaç`, `aşı`
