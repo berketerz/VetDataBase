@@ -59,4 +59,26 @@
 8. **Asi_Uygulama** (<ins>hayvan\_ID (FK), asi\_ID (FK), asilama\_tarihi</ins>) &nbsp;&nbsp;&nbsp;— *[Adım 5]*
 9. **Recete** (<ins>hayvan\_ID (FK), vet\_ID (FK), ilac\_ID (FK)</ins>, recete\_tarihi, doz, miktar) &nbsp;&nbsp;&nbsp;— *[Adım 7]*
 
+---
+
+## 3. Normalizasyon (1NF → 2NF → 3NF)
+
+### 1NF (Birinci Normal Form)
+* **Koşul:** Her hücre tek (atomik) değer içermeli, çok değerli nitelik bulunmamalıdır.
+* **Geçiş (0NF → 1NF):** `Sahip` tablosundaki çok değerli `tel_no` niteliği ayrı bir tabloya ayrıştırılmıştır:
+  * **Sahip** (<ins>sahip\_ID</ins>, ad, soyad, adres)
+  * **Sahip_Telefon** (<ins>sahip\_ID (FK), tel\_no</ins>)
+
+### 2NF (İkinci Normal Form)
+* **Koşul:** 1NF sağlanmalı ve anahtar olmayan nitelikler bileşik anahtarın tamamına tam bağımlı olmalıdır *(Kısmi bağımlılık olmamalıdır)*.
+* **Geçiş (1NF → 2NF):** Tekil anahtarlı tablolar (`Sahip`, `Hayvan`, `Veteriner_Hekim`, `Ilac`, `Asi`) doğrudan 2NF'dir. Bileşik anahtarlı `Muayene`, `Asi_Uygulama` ve `Recete` tablolarında ise ilaç adı/fiyatı gibi tek bir anahtar parçasına bağlı nitelikler ayrı tablolarda (`Ilac`, `Asi`) tutularak kısmi bağımlılık önlenmiştir:
+  * **Ilac** (<ins>ilac\_ID</ins>, ad, tur, fiyat)
+  * **Recete** (<ins>hayvan\_ID (FK), vet\_ID (FK), ilac\_ID (FK)</ins>, recete\_tarihi, doz, miktar)
+
+### 3NF (Üçüncü Normal Form)
+* **Koşul:** 2NF sağlanmalı ve anahtar olmayan hiçbir nitelik başka bir anahtar olmayan niteliğe bağımlı olmamalıdır *(Geçişli bağımlılık olmamalıdır)*.
+* **Geçiş (2NF → 3NF):** `Hayvan` tablosunda sahibinin adı ve adresi gibi `sahip_ID` üzerinden geçişli bağımlılık (`hayvan_ID → sahip_ID → adres`) yaratacak alanlar tutulmamış, yalnızca `sahip_ID (FK)` referansı bırakılarak tüm tablolar 3NF'ye ulaştırılmıştır:
+  * **Sahip** (<ins>sahip\_ID</ins>, ad, soyad, adres)
+  * **Hayvan** (<ins>hayvan\_ID</ins>, ad, tur, irk, cinsiyet, dogum\_tarihi, sahip\_ID (FK))
+
 
